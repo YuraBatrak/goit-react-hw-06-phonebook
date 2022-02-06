@@ -4,14 +4,14 @@ import { addContact, deleteContact, filterContact } from "./actions";
 
 const itemContactReducer = createReducer([], {
   [addContact]: (state, action) => {
-    const findMap = state.find(
-      (contact) =>
-        contact.name.toLowerCase() === action.payload.name.toLowerCase()
-    );
-    if (findMap) {
-      alert(`${findMap.name} is already in contacts.`);
-      return;
-    }
+    // const findMap = state.find(
+    //   (contact) =>
+    //     contact.name.toLowerCase() === action.payload.name.toLowerCase()
+    // );
+    // if (findMap) {
+    //   alert(`${findMap.name} is already in contacts.`);
+    //   return;
+    // }
     return [...state, action.payload];
   },
   [deleteContact]: (state, action) => {

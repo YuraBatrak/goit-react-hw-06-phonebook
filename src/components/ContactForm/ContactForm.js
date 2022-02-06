@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Section from "../Section/Section ";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../../redux/actions";
 import shortid from "shortid";
 import s from "./ContactForm.module.css";
@@ -10,14 +10,26 @@ export default function ContactForm() {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const dispatch = useDispatch();
-
+  const contacts = useSelector((state) => state.contacts.items);
   const handleSubmit = (e) => {
     e.preventDefault();
+    const findMap = contacts.find(
+      (contact) => contact.name.toLowerCase() === name.toLowerCase()
+    );
+    if (findMap) {
+      alert(`${findMap.name} is already in contacts.`);
+      reset();
+      return;
+    }
     dispatch(addContact({ name, number }));
     setName("");
     setNumber("");
+    reset();
   };
-
+  const reset = () => {
+    setName("");
+    setNumber("");
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
