@@ -1,15 +1,11 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/actions";
+import { useSelector } from "react-redux";
 import Section from "../Section/Section ";
 import ContactListItem from "../ContactListItem/ContactListItem";
 import PropTypes from "prop-types";
 import s from "./ContactList.module.css";
 
 export default function ContactList() {
-  const dispatch = useDispatch();
-  const onDeleteContact = (id) => dispatch(deleteContact(id));
-
   const getContactList = (state) => {
     const { filter, items } = state.contacts;
     const normalizedFilter = filter.toLowerCase();
@@ -26,12 +22,7 @@ export default function ContactList() {
           <p className={s.message}>Contact list is empty</p>
         ) : (
           contacts.map(({ name, id, number }) => (
-            <ContactListItem
-              deleteFunc={() => onDeleteContact(id)}
-              name={name}
-              key={id}
-              number={number}
-            />
+            <ContactListItem name={name} key={id} number={number} id={id} />
           ))
         )}
       </ul>

@@ -3,21 +3,11 @@ import { combineReducers } from "redux";
 import { addContact, deleteContact, filterContact } from "./actions";
 
 const itemContactReducer = createReducer([], {
-  [addContact]: (state, action) => {
-    // const findMap = state.find(
-    //   (contact) =>
-    //     contact.name.toLowerCase() === action.payload.name.toLowerCase()
-    // );
-    // if (findMap) {
-    //   alert(`${findMap.name} is already in contacts.`);
-    //   return;
-    // }
-    return [...state, action.payload];
+  [addContact]: (state, { payload }) => {
+    return [...state, payload];
   },
-  [deleteContact]: (state, action) => {
-    const deletes = state.filter((contact) => contact.id !== action.payload);
-    return [...deletes];
-  },
+  [deleteContact]: (state, { payload }) =>
+    state.filter((contact) => contact.id !== payload),
 });
 const filterContactReducer = createReducer("", {
   [filterContact]: (state, action) => action.payload,
